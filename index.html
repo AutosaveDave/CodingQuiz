@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Coding Quiz</title>
+  <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+<header>
+  <input id = "highscores-btn" type = "button" value = "View High Scores"/>
+  <!-- <a href = "#" id = "high-scores-link"><h4 id = "high-scores-text">View High Scores</h4></a> -->
+  <h4 id = "timer-text" hidden></h4>
+</header>
+<body>
+    <div id = "pre-quiz-div">
+      <button id = "start-quiz-btn" type = "button">START QUIZ</button>
+    </div>
+    <div id = "quiz-div" hidden>
+      <h2 id = "question-h2"></h2>
+      <div id = "choices-div">
+        <div class = "choice-div">
+          <input id = "choiceA-btn" class = "choice-btns" type="button" name = "choices" value = "0">
+          <!-- <label for = "choiceA-btn" id = "choiceA-label"></label> -->
+        </div>
+        <div class = "choice-div">
+          <input id = "choiceB-btn" class = "choice-btns" type = "button" name = "choices" value = "1">
+          <!-- <label for = "choiceB-btn" id = "choiceB-label"></label> -->
+        </div>
+        <div class = "choice-div">
+          <input id = "choiceC-btn" class = "choice-btns" type = "button" name = "choices" value = "2">
+          <!-- <label for = "choiceC-btn" id = "choiceC-label"></label> -->
+        </div>
+        <div class = "choice-div">
+          <input id = "choiceD-btn" class = "choice-btns" type = "button" name = "choices" value = "3">
+          <!-- <label for = "choiceD-btn" id = "choiceD-label"></label> -->
+        </div>
+      </div>
+      <div id = "right-answer-div" class = "feedback" hidden>
+        <h4 id = "right-answer">Correct!</h4>
+      </div>
+      <div id = "wrong-answer-div" class = "feedback" hidden>
+        <h4 id = "wrong-answer">Inorrect!</h4>
+      </div>
+    </div>
+
+    <div id = "postquiz-div" hidden>
+      <h1>Quiz Finished!</h1>
+      <h3>You scored <span id = "postquiz-score"></span>/<span id = "postquiz-maxscore"></span></h3>
+      <h5>Enter your initials</h5>
+      <input type="text" id="postquiz-initials" max="3"/>
+      <input type="button" id="postquiz-btn" value = "OK"/>
+    </div>
+
+    <div id = "highscore-div" hidden>
+      <h1>High Scores</h1>
+      <ol id = "highscore-list" type = "1"></ol>
+      <input id = "back-to-start-btn" type = "button" value = "Go Back"/>
+      <input id = "clear-scores-btn" type="button" value = "Clear Scores"/>
+    </div>
+
+    <script src = "./assets/js/questions.js"></script>
+    <script src = "./assets/js/quiz.js"></script>
+</body>
+
+</html>
