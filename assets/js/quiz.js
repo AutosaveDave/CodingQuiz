@@ -1,7 +1,9 @@
 const prequizDiv = document.getElementById("pre-quiz-div");
 const startQuizBtn = document.getElementById("start-quiz-btn");
 const quizDiv = document.getElementById("quiz-div");
-const highScoresBtn = document.getElementById("highscores-btn");
+const highScoresMenuBtn = document.getElementById("highscores-btn");
+const choicesDiv = document.getElementById("choices-div");
+
 
 const choiceBtn = [document.getElementById("choiceA-btn"), 
                     document.getElementById("choiceB-btn"),
@@ -41,25 +43,29 @@ let currentQuestion = 0;
 const maxScore = questions.length;
 let appMode = 0; //appMode: 0=prequiz, 1=quiz, 2=postquiz, 3=highscores
 
+for(let i = 0 ; i < choiceBtn.length ; i++){
+    choiceBtn[i].addEventListener("click", function() {
+            choiceClick(i);
+        }, false);
+}
+
 function startQuiz() {
     currentQuestion = 0;
     score = 0;
     appMode = 1;
-    prequizDiv.hidden = true;
-    quizDiv.hidden = false;
-    highScoresBtn.hidden = true;
+    prequizDiv.style.display = "none";
+    quizDiv.style.display = "inline-block";
+    choicesDiv.style.display = "flex";
+    highScoresMenuBtn.hidden = true;
 
     timer = 15 * questions.length;
     showTimer();
     updateTimer();
 
     ticker = setInterval(countdown,1000);
-    for(let i = 0 ; i < choiceBtn.length ; i++){
-        choiceBtn[i].addEventListener("click", function() {
-                choiceClick(i);
-            }, false);
-    }
+    
     displayQuestion();
+    highScoresMenuBtn.hidden = true;
 }
 
 function nextQuestion() {
@@ -74,17 +80,17 @@ function nextQuestion() {
 function showFeedback(correct) {
     hideFeedback();
     if(correct){
-        rightAnswerDiv.hidden = false;
+        rightAnswerDiv.style.display = "inline-flex";
         rightAnswerText.textContent = `Correct! \nCurrent score: ${currentScore}/${currentQuestion+1}`;
     } else {
-        wrongAnswerDiv.hidden = false;
+        wrongAnswerDiv.style.display = "inline-flex";
         wrongAnswerText.textContent = `Incorrect! \nCurrent score: ${currentScore}/${currentQuestion+1}`
     }
     fbTicker = setTimeout(hideFeedback,500);
 }
 function hideFeedback() {
-    rightAnswerDiv.hidden = true;
-    wrongAnswerDiv.hidden = true;
+    rightAnswerDiv.style.display = "none";
+    wrongAnswerDiv.style.display = "none";
 }
 
 function displayQuestion() {
@@ -131,7 +137,9 @@ function endQuiz() {
     clearInterval(ticker);
     clearTimeout(fbTicker);
     hideTimer();
-    quizDiv.hidden = true;
+    hideFeedback();
+    quizDiv.style.display = "none";
+    choicesDiv.style.display = "none";
     postquizDiv.hidden = false;
     appMode = 2;
     postquizScore.textContent = currentScore;
@@ -211,19 +219,21 @@ function resetVars() {
 function startOver() {
     highscoreDiv.hidden = true;
     postquizDiv.hidden = true;
-    quizDiv.hidden = true;
-    prequizDiv.hidden = false;
-    highScoresBtn.hidden = false;
+    quizDiv.style.display = "none";
+    choicesDiv.style.display = "none";
+    prequizDiv.style.display ="flex";
+    highScoresMenuBtn.hidden = false;
     resetVars();
 }
 
 function viewHighscores() {
     sortScores();
     postquizDiv.hidden = true;
-    quizDiv.hidden = true;
-    prequizDiv.hidden = true;
+    quizDiv.style.display = "none";
+    choicesDiv.style.display = "none";
+    prequizDiv.style.display = "none";
     highscoreDiv.hidden = false;
-    highScoresBtn.hidden = true;
+    highScoresMenuBtn.hidden = true;
     appMode = 3;
     renderHighscores();
 }
@@ -233,7 +243,7 @@ function clearScoresClick() {
     renderHighscores();
 }
 
-highScoresBtn.onclick = viewHighscores;
+highScoresMenuBtn.onclick = viewHighscores;
 
 startQuizBtn.onclick = startQuiz;
 
